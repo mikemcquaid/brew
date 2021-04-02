@@ -69,17 +69,9 @@ class GitHubPackages
   end
 
   def self.version_rebuild(version, rebuild, bottle_tag = nil)
+    rebuild = ("-#{rebuild}" if rebuild.to_i.positive?)
     bottle_tag = (".#{bottle_tag}" if bottle_tag.present?)
-
-    rebuild = if rebuild.to_i.positive?
-      if bottle_tag
-        ".#{rebuild}"
-      else
-        "-#{rebuild}"
-      end
-    end
-
-    "#{version}#{bottle_tag}#{rebuild}"
+    "#{version}#{rebuild}#{bottle_tag}"
   end
 
   def self.repo_without_prefix(repo)
